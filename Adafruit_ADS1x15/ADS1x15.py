@@ -127,8 +127,8 @@ class ADS1x15(object):
         # Explicitly break the 16-bit value down to a big endian pair of bytes.
         self._device.writeList(ADS1x15_POINTER_CONFIG, [(config >> 8) & 0xFF, config & 0xFF])
         # Wait for the ADC sample to finish based on the sample rate plus a
-        # small offset to be sure (0.1 millisecond).
-        time.sleep(1.0/data_rate+0.0001)
+        # small offset to be sure (1 millisecond).
+        time.sleep(1.0/data_rate+0.001)
         # Retrieve the result.
         result = self._device.readList(ADS1x15_POINTER_CONVERSION, 2)
         return self._conversion_value(result[1], result[0])
